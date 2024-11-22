@@ -43,26 +43,16 @@ def generate_solana_wallet():
     return generator
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Handles the `/start` command."""
-    # Generate a new Solana wallet for the user
+async def show_main_dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Displays the main dashboard within the same UI."""
     wallet_generator = generate_solana_wallet()
     wallet_address = wallet_generator.public_key
-    private_key = wallet_generator.private_key_base58
 
     # Wallet and Status
     balance = "0 SOL (USD $0)"
     status = "🔴 You currently have no SOL in your wallet.\nTo start trading, please deposit SOL to your address."
 
-    # Resources Section
-    resources = (
-        "[📖 Bloom Guides](https://example.com)\n"
-        "[🔔 Bloom X](https://example.com)\n"
-        "[🌐 Bloom Website](https://example.com)\n"
-        "[💛 Bloom Portal](https://example.com)"
-    )
-
-    # Buttons Section: Two buttons per row
+    # Buttons for main dashboard
     keyboard = [
         [InlineKeyboardButton("Positions", callback_data='positions'), InlineKeyboardButton("LP Sniper", callback_data='lp_sniper')],
         [InlineKeyboardButton("Copy Trade", callback_data='copy_trade'), InlineKeyboardButton("AFK Mode", callback_data='afk_mode')],
@@ -73,32 +63,75 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Message Content
+    # Main dashboard content
     message = (
         f"Welcome to Bloom! 🌸\n\n"
         f"Let your trading journey *blossom* with us!\n\n"
         f"💜 *Your Solana Wallet Address:*\n"
         f"`{wallet_address}`\n"
-        f"*Private Key:* `{private_key}`\n"
         f"*Balance:* {balance}\n\n"
         f"{status}\n\n"
-        f"📚 *Resources:*\n{resources}\n\n"
+        f"📚 *Resources:*\n"
+        f"[📖 Bloom Guides](https://example.com)\n"
+        f"[🔔 Bloom X](https://example.com)\n"
+        f"[🌐 Bloom Website](https://example.com)\n"
+        f"[💛 Bloom Portal](https://example.com)\n\n"
         f"Last updated: 15:10:03.318"
     )
 
-    await update.message.reply_text(
-        message,
-        parse_mode='Markdown',
-        reply_markup=reply_markup
+    # Edit the current message to show the main dashboard
+    if update.callback_query:
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    else:
+        await update.message.reply_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
+
+async def show_settings_dashboard(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Displays the settings dashboard within the same UI."""
+    # Buttons for settings dashboard
+    keyboard = [
+        [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("Wallets", callback_data='wallets')],
+        [InlineKeyboardButton("Buy Presets", callback_data='buy_presets'), InlineKeyboardButton("Sell Presets", callback_data='sell_presets')],
+        [InlineKeyboardButton("Spot Presets", callback_data='spot_presets'), InlineKeyboardButton("Sniper Presets", callback_data='sniper_presets')],
+        [InlineKeyboardButton("Degen Mode", callback_data='degen_mode'), InlineKeyboardButton("MEV Protect", callback_data='mev_protect')],
+        [InlineKeyboardButton("Buy: node", callback_data='buy_node'), InlineKeyboardButton("Sell: node", callback_data='sell_node')],
+        [InlineKeyboardButton("Buy Slippage: 20%", callback_data='buy_slippage'), InlineKeyboardButton("Sell Slippage: 15%", callback_data='sell_slippage')],
+        [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Close", callback_data='close')],
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Settings dashboard content
+    message = (
+        f"🌸 *Bloom Settings*\n\n"
+        f"🟢 : The feature/mode is turned *ON*\n"
+        f"🔴 : The feature/mode is turned *OFF*\n\n"
+        f"[Learn More!](https://example.com)\n\n"
+        f"🕒 Last updated: 18:53:13.881"
     )
 
+    # Edit the current message to show the settings dashboard
+    await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
 
 # Callback for button clicks
 async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handles button click events to navigate between dashboards."""
     query = update.callback_query
-    await query.answer()
-    await query.edit_message_text(text=f"You clicked: {query.data}")
+
+    if query.data == "settings":
+        # Navigate to Settings Dashboard
+        await show_settings_dashboard(update, context)
+    elif query.data == "back":
+        # Navigate back to Main Dashboard
+        await show_main_dashboard(update, context)
+    elif query.data == "close":
+        # Close the interaction
+        await query.message.delete()
+    else:
+        # Handle other button clicks
+        await query.answer()
+        await query.edit_message_text(text=f"You clicked: {query.data}")
 
 
 def main() -> None:
@@ -107,7 +140,7 @@ def main() -> None:
     application = Application.builder().token(TOKEN).build()
 
     # Handlers
-    application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('start', show_main_dashboard))
     application.add_handler(CallbackQueryHandler(button_click))
 
     # Run the bot
