@@ -62,16 +62,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "[💛 Bloom Portal](https://example.com)"
     )
 
-    # Buttons Section
+    # Buttons Section: Two buttons per row
     keyboard = [
-        [InlineKeyboardButton("Positions", callback_data='positions')],
-        [InlineKeyboardButton("LP Sniper", callback_data='lp_sniper')],
-        [InlineKeyboardButton("Copy Trade", callback_data='copy_trade')],
-        [InlineKeyboardButton("AFK Mode", callback_data='afk_mode')],
-        [InlineKeyboardButton("Limit Orders", callback_data='limit_orders')],
-        [InlineKeyboardButton("Withdraw", callback_data='withdraw')],
-        [InlineKeyboardButton("Settings", callback_data='settings')],
-        [InlineKeyboardButton("Refresh", callback_data='refresh')],
+        [InlineKeyboardButton("Positions", callback_data='positions'), InlineKeyboardButton("LP Sniper", callback_data='lp_sniper')],
+        [InlineKeyboardButton("Copy Trade", callback_data='copy_trade'), InlineKeyboardButton("AFK Mode", callback_data='afk_mode')],
+        [InlineKeyboardButton("Limit Orders", callback_data='limit_orders'), InlineKeyboardButton("Referrals", callback_data='referrals')],
+        [InlineKeyboardButton("Withdraw", callback_data='withdraw'), InlineKeyboardButton("Settings", callback_data='settings')],
+        [InlineKeyboardButton("Close", callback_data='close'), InlineKeyboardButton("Refresh", callback_data='refresh')],
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -94,6 +91,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         parse_mode='Markdown',
         reply_markup=reply_markup
     )
+
 
 
 # Callback for button clicks
