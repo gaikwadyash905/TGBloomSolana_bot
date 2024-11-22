@@ -90,6 +90,34 @@ class DashboardManager:
         else:
             await update.message.reply_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
+    async def show_afk_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Displays the AFK Mode (ZFK Mode) dashboard."""
+        wallet_address = self.wallet_generator.public_key
+
+        # Buttons for AFK Mode dashboard
+        keyboard = [
+            [InlineKeyboardButton("Add new config", callback_data='add_config')],
+            [InlineKeyboardButton("Pause All", callback_data='pause_all'), InlineKeyboardButton("Start All", callback_data='start_all')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+        ]
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # AFK Mode dashboard content
+        message = (
+            f"🌸 *Bloom AFK*\n\n"
+            f"💡 Run your bot while you are away!\n\n"
+            f"AFK Wallet:\n"
+            f"→ `W1: {wallet_address}`\n\n"
+            f"🟢 AFK mode is *active*\n"
+            f"🔴 AFK mode is *inactive*\n\n"
+            f"⚠️ Please wait 10 seconds after each change for it to take effect.\n\n"
+            f"⚠️ Changing your Default wallet? Remember to remake your tasks to use the new wallet for future transactions.\n\n"
+            f"🕒 Last updated: 19:40:32.861"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def show_settings_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Displays the settings dashboard."""
         # Buttons for settings dashboard
@@ -120,7 +148,9 @@ class DashboardManager:
         """Handles button click events and navigates between dashboards."""
         query = update.callback_query
 
-        if query.data == "settings":
+        if query.data == "afk_mode":
+            await self.show_afk_dashboard(update, context)
+        elif query.data == "settings":
             await self.show_settings_dashboard(update, context)
         elif query.data == "back":
             await self.show_main_dashboard(update, context)
