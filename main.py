@@ -144,6 +144,26 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
+    async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the position settings dashboard."""
+        # Buttons for position dashboard
+        keyboard = [
+            [InlineKeyboardButton("Min Value: N/A Sol", callback_data='min_val'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("HomePage", callback_data='homepage'), InlineKeyboardButton("Delete", callback_data='delete')]
+        ]
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # Position dashboard content
+        message = (
+            f"🌸 Bloom Positions"
+            f"No open positions yet!"
+            f"Start your trading journey by pasting a contract address in chat."
+            f"🕒 Last updated: 10:32:20.564"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def handle_button_click(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handles button click events and navigates between dashboards."""
         query = update.callback_query
@@ -154,8 +174,12 @@ class DashboardManager:
             await self.show_settings_dashboard(update, context)
         elif query.data == "back":
             await self.show_main_dashboard(update, context)
+        elif query.data == "homepage":
+            await self.show_main_dashboard(update, context)
         elif query.data == "close":
             await query.message.delete()
+        elif query.data == "positions":
+            await self.show_position_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
