@@ -252,6 +252,8 @@ class DashboardManager:
             await self.show_trade_dashboard(update, context)
         elif query.data == "wallet":
             await self.show_wallet_dashboard(update, context)
+        elif query.data == "back_to_setting":
+            await self.show_settings_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
