@@ -121,7 +121,7 @@ class DashboardManager:
         """Displays the settings dashboard."""
         # Buttons for settings dashboard
         keyboard = [
-            [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("Wallets", callback_data='wallets')],
+            [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("Wallet", callback_data='wallet')],
             [InlineKeyboardButton("Buy Presets", callback_data='buy_presets'), InlineKeyboardButton("Sell Presets", callback_data='sell_presets')],
             [InlineKeyboardButton("Spot Presets", callback_data='spot_presets'), InlineKeyboardButton("Sniper Presets", callback_data='sniper_presets')],
             [InlineKeyboardButton("Degen Mode", callback_data='degen_mode'), InlineKeyboardButton("MEV Protect", callback_data='mev_protect')],
@@ -209,6 +209,27 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
+    async def show_wallet_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the wallet dashboard."""
+        #Buttons for wallet dashboard
+        keyboard = [
+            [InlineKeyboardButton("W1 0SOL", callback_data='sol_button1'), InlineKeyboardButton("W2 0SOL", callback_data='sol_button2')],
+            [InlineKeyboardButton("W3 0SOL", callback_data='sol_button3')],
+            [InlineKeyboardButton("Create Wallet", callback_data='create_wallet'), InlineKeyboardButton("Import Wallet", callback_data='import_wallet')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # Wallet dashboard content
+        message = (
+            f"🌸 Wallets Settings"
+            f"Manage all your wallets with ease."
+            f"📖 Learn More!"
+            f"🕒 Last updated: 23:37:05.922"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def handle_button_click(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handles button click events and navigates between dashboards."""
         query = update.callback_query
@@ -229,6 +250,8 @@ class DashboardManager:
             await self.show_sniper_dashboard(update, context)
         elif query.data == "copy_trade":
             await self.show_trade_dashboard(update, context)
+        elif query.data == "wallet":
+            await self.show_wallet_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
