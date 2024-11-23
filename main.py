@@ -171,7 +171,7 @@ class DashboardManager:
             [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
             InlineKeyboardButton("Close", callback_data='close')
         ]
-        
+
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         # sniper dashboard content
@@ -200,6 +200,8 @@ class DashboardManager:
             await query.message.delete()
         elif query.data == "positions":
             await self.show_position_dashboard(update, context)
+        elif query.data == "lp_sniper":
+            await self.show_sniper_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
