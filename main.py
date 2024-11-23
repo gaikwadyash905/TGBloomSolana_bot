@@ -176,10 +176,35 @@ class DashboardManager:
 
         # sniper dashboard content
         message = (
-            f"🌸 Bloom Positions"
-            f"🧐 No active sniper tasks!"
-            f"📖 Learn More!"
-            f"🕒 Last updated: 13:50:13.549"
+            f"🌸 Bloom Positions\n\n"
+            f"🧐 No active sniper tasks!\n\n"
+            f"📖 Learn More!\n\n"
+            f"🕒 Last updated: 13:50:13.549\n\n"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
+    async def show_trade_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Diaplay the trade dashboard."""
+        # Buttons fortrade dashboard
+        keyboard = [
+            [InlineKeyboardButton("Add new config", callback_data='new_config')],
+            [InlineKeyboardButton("Pause All", callback_data='pause_all'), InlineKeyboardButton("Start All", callback_data='start_all')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Close", callback_data='close')]
+        ]
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # trader dashboard content
+        message = (
+            f"🌸 Bloom Copy Trade\n\n"
+            f"💡 Copy the best traders with Bloom!\n\n"
+            f"🟢 Copy trade setup is active\n\n"
+            f"🔴 Copy trade setup is inactive\n\n"
+            f"⏱️ Please wait 10 seconds after each change for it to take effect\n\n"
+            f"⚠️ Changing your copy wallet? Remember to remake your tasks to use the new wallet for future transactions.\n\n"
+            f"🕒 Last updated: 14:42:57.036\n\n"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -202,6 +227,8 @@ class DashboardManager:
             await self.show_position_dashboard(update, context)
         elif query.data == "lp_sniper":
             await self.show_sniper_dashboard(update, context)
+        elif query.data == "copy_trade":
+            await self.show_trade_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
