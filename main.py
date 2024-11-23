@@ -163,6 +163,27 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
+    async def show_sniper_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE)-> None:
+        """Display the sniper dashboard."""
+        # Buttons for sniper dashboard
+        keyboard = [
+            [InlineKeyboardButton("Sniper Wallets:0", callback_data='sniper_wallet'), InlineKeyboardButton("Create Task", callback_data='create_task')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            InlineKeyboardButton("Close", callback_data='close')
+        ]
+        
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # sniper dashboard content
+        message = (
+            f"🌸 Bloom Positions"
+            f"🧐 No active sniper tasks!"
+            f"📖 Learn More!"
+            f"🕒 Last updated: 13:50:13.549"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def handle_button_click(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handles button click events and navigates between dashboards."""
         query = update.callback_query
