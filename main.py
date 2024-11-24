@@ -4,6 +4,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from solders.keypair import Keypair
 import base58
+from datetime import datetime
+from pytz import timezone
 
 # Load the .env file
 load_dotenv()
@@ -42,6 +44,12 @@ def generate_solana_wallet():
     generator.generate_new_keypair()
     return generator
 
+# Function to get the current US time
+def get_us_time():
+    """Returns the current time in US Eastern Time Zone."""
+    eastern = timezone("US/Eastern")
+    now = datetime.now(eastern)
+    return now.strftime("%H:%M:%S.%f")[:-3]  # Format: HH:MM:SS.mmm
 
 # DashboardManager: Manages the navigation between different dashboards
 class DashboardManager:
@@ -89,6 +97,10 @@ class DashboardManager:
             # Check if content or markup is different before editing
             if update.callback_query.message.text != message or update.callback_query.message.reply_markup != reply_markup:
                 print(" ----------------refresh_mode!-------------------")
+
+                current_time = get_us_time()
+                print(current_time)
+                
                 await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
         else:
             await update.message.reply_text(message, parse_mode="Markdown", reply_markup=reply_markup)
