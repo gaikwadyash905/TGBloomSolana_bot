@@ -88,6 +88,7 @@ class DashboardManager:
             f"*Balance:* {balance}\n\n"
             f"{status}\n\n"
             f"📚 *Resources:*\n"
+            f" \n"
             f"[📖 Bloom Guides](https://example.com)\n"
             f"[🔔 Bloom X](https://example.com)\n"
             f"[🌐 Bloom Website](https://example.com)\n"
