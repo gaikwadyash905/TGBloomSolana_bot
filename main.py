@@ -49,11 +49,12 @@ class DashboardManager:
 
     def __init__(self):
         self.wallet_generator = generate_solana_wallet()
+        self.current_dashboard = "main"
 
     async def show_main_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Displays the main dashboard."""
+        self.current_dashboard = "main"
         wallet_address = self.wallet_generator.public_key
-
         # Wallet and Status
         balance = "0 SOL (USD $0)"
         status = "🔴 You currently have no SOL in your wallet.\nTo start trading, please deposit SOL to your address."
@@ -91,6 +92,8 @@ class DashboardManager:
 
     async def show_afk_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Displays the AFK Mode (ZFK Mode) dashboard."""
+        self.current_dashboard = "afk"
+
         wallet_address = self.wallet_generator.public_key
 
         # Buttons for AFK Mode dashboard
@@ -119,6 +122,8 @@ class DashboardManager:
 
     async def show_settings_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Displays the settings dashboard."""
+        self.current_dashboard = "setting"
+
         # Buttons for settings dashboard
         keyboard = [
             [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("Wallet", callback_data='wallet')],
@@ -145,6 +150,7 @@ class DashboardManager:
 
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
+        self.current_dashboard = "position"
         # Buttons for position dashboard
         keyboard = [
             [InlineKeyboardButton("Min Value: N/A Sol", callback_data='min_val'), InlineKeyboardButton("Refresh", callback_data='refresh')],
@@ -165,6 +171,8 @@ class DashboardManager:
 
     async def show_sniper_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE)-> None:
         """Display the sniper dashboard."""
+        self.current_dashboard = "sniper"
+
         # Buttons for sniper dashboard
         keyboard = [
             [InlineKeyboardButton("Sniper Wallets:0", callback_data='sniper_wallet'), InlineKeyboardButton("Create Task", callback_data='create_task')],
@@ -186,6 +194,8 @@ class DashboardManager:
     
     async def show_trade_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Diaplay the trade dashboard."""
+        self.current_dashboard = "trader"
+
         # Buttons fortrade dashboard
         keyboard = [
             [InlineKeyboardButton("Add new config", callback_data='new_config')],
@@ -211,6 +221,8 @@ class DashboardManager:
 
     async def show_wallet_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the wallet dashboard."""
+        self.current_dashboard = "wallet"
+
         #Buttons for wallet dashboard
         keyboard = [
             [InlineKeyboardButton("W1 0SOL", callback_data='sol_button1'), InlineKeyboardButton("W2 0SOL", callback_data='sol_button2')],
@@ -254,6 +266,8 @@ class DashboardManager:
             await self.show_wallet_dashboard(update, context)
         elif query.data == "back_to_setting":
             await self.show_settings_dashboard(update, context)
+        # elif query.data == "refresh":
+        #     if self.current_dashboard 
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
