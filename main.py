@@ -77,6 +77,8 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+        
         # Main dashboard content
         message = (
             f"Welcome to Bloom! 🌸\n\n"
@@ -90,7 +92,7 @@ class DashboardManager:
             f"[🔔 Bloom X](https://example.com)\n"
             f"[🌐 Bloom Website](https://example.com)\n"
             f"[💛 Bloom Portal](https://example.com)\n\n"
-            f"Last updated: 15:10:03.318"
+            f"🕒 Last updated: {last_updated}"
         )
 
         if update.callback_query:
@@ -100,7 +102,7 @@ class DashboardManager:
 
                 current_time = get_us_time()
                 print(current_time)
-                
+
                 await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
         else:
             await update.message.reply_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -119,6 +121,8 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # AFK Mode dashboard content
         message = (
             f"🌸 *Bloom AFK*\n\n"
@@ -129,7 +133,7 @@ class DashboardManager:
             f"🔴 AFK mode is *inactive*\n\n"
             f"⚠️ Please wait 10 seconds after each change for it to take effect.\n\n"
             f"⚠️ Changing your Default wallet? Remember to remake your tasks to use the new wallet for future transactions.\n\n"
-            f"🕒 Last updated: 19:40:32.861"
+            f"🕒 Last updated: {last_updated}"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -151,13 +155,15 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # Settings dashboard content
         message = (
             f"🌸 *Bloom Settings*\n\n"
             f"🟢 : The feature/mode is turned *ON*\n"
             f"🔴 : The feature/mode is turned *OFF*\n\n"
             f"[Learn More!](https://example.com)\n\n"
-            f"🕒 Last updated: 18:53:13.881"
+            f"🕒 Last updated: {last_updated}"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -173,12 +179,14 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # Position dashboard content
         message = (
             f"🌸 Bloom Positions"
             f"No open positions yet!"
             f"Start your trading journey by pasting a contract address in chat."
-            f"🕒 Last updated: 10:32:20.564"
+            f"🕒 Last updated: {last_updated}"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -196,12 +204,14 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # sniper dashboard content
         message = (
             f"🌸 Bloom Positions\n\n"
             f"🧐 No active sniper tasks!\n\n"
             f"📖 Learn More!\n\n"
-            f"🕒 Last updated: 13:50:13.549\n\n"
+            f"🕒 Last updated: {last_updated}\n\n"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -220,6 +230,8 @@ class DashboardManager:
 
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # trader dashboard content
         message = (
             f"🌸 Bloom Copy Trade\n\n"
@@ -228,7 +240,7 @@ class DashboardManager:
             f"🔴 Copy trade setup is inactive\n\n"
             f"⏱️ Please wait 10 seconds after each change for it to take effect\n\n"
             f"⚠️ Changing your copy wallet? Remember to remake your tasks to use the new wallet for future transactions.\n\n"
-            f"🕒 Last updated: 14:42:57.036\n\n"
+            f"🕒 Last updated: {last_updated}\n\n"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
@@ -246,12 +258,14 @@ class DashboardManager:
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
         # Wallet dashboard content
         message = (
             f"🌸 Wallets Settings"
             f"Manage all your wallets with ease."
             f"📖 Learn More!"
-            f"🕒 Last updated: 23:37:05.922"
+            f"🕒 Last updated: {last_updated}"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
