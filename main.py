@@ -69,10 +69,10 @@ class DashboardManager:
 
         # Buttons for main dashboard
         keyboard = [
-            [InlineKeyboardButton("Positions", callback_data='positions'), InlineKeyboardButton("LP Sniper", callback_data='lp_sniper')],
-            [InlineKeyboardButton("Copy Trade", callback_data='copy_trade'), InlineKeyboardButton("AFK Mode", callback_data='afk_mode')],
-            [InlineKeyboardButton("Wallet", callback_data='wallet'), InlineKeyboardButton("Settings", callback_data='settings')],
-            [InlineKeyboardButton("Close", callback_data='close'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("👜Positions", callback_data='positions'), InlineKeyboardButton("🏹LP Sniper", callback_data='lp_sniper')],
+            [InlineKeyboardButton("🤖Copy Trade", callback_data='copy_trade'), InlineKeyboardButton("💤AFK Mode", callback_data='afk_mode')],
+            [InlineKeyboardButton("💰Wallet", callback_data='wallet'), InlineKeyboardButton("⚙️Settings", callback_data='settings')],
+            [InlineKeyboardButton("🚮Close", callback_data='close'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -116,7 +116,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("Add new config", callback_data='add_config')],
             [InlineKeyboardButton("Pause All", callback_data='pause_all'), InlineKeyboardButton("Start All", callback_data='start_all')],
-            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -144,13 +144,13 @@ class DashboardManager:
 
         # Buttons for settings dashboard
         keyboard = [
-            [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("Wallet", callback_data='wallet')],
+            [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("💰Wallet", callback_data='wallet')],
             [InlineKeyboardButton("Buy Presets", callback_data='buy_presets'), InlineKeyboardButton("Sell Presets", callback_data='sell_presets')],
             [InlineKeyboardButton("Spot Presets", callback_data='spot_presets'), InlineKeyboardButton("Sniper Presets", callback_data='sniper_presets')],
             [InlineKeyboardButton("Degen Mode", callback_data='degen_mode'), InlineKeyboardButton("MEV Protect", callback_data='mev_protect')],
             [InlineKeyboardButton("Buy: node", callback_data='buy_node'), InlineKeyboardButton("Sell: node", callback_data='sell_node')],
             [InlineKeyboardButton("Buy Slippage: 20%", callback_data='buy_slippage'), InlineKeyboardButton("Sell Slippage: 15%", callback_data='sell_slippage')],
-            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Close", callback_data='close')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("🚮Close", callback_data='close')],
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -173,7 +173,7 @@ class DashboardManager:
         self.current_dashboard = "position"
         # Buttons for position dashboard
         keyboard = [
-            [InlineKeyboardButton("Min Value: N/A Sol", callback_data='min_val'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Min Value: N/A Sol", callback_data='min_val'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
             [InlineKeyboardButton("HomePage", callback_data='homepage'), InlineKeyboardButton("Delete", callback_data='delete')]
         ]
 
@@ -198,7 +198,7 @@ class DashboardManager:
         # Buttons for sniper dashboard
         keyboard = [
             [InlineKeyboardButton("Sniper Wallets:0", callback_data='sniper_wallet'), InlineKeyboardButton("Create Task", callback_data='create_task')],
-            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
             [InlineKeyboardButton("Close", callback_data='close')]
         ]
 
@@ -224,7 +224,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("Add new config", callback_data='new_config')],
             [InlineKeyboardButton("Pause All", callback_data='pause_all'), InlineKeyboardButton("Start All", callback_data='start_all')],
-            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
             [InlineKeyboardButton("Close", callback_data='close')]
         ]
 
