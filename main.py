@@ -266,8 +266,21 @@ class DashboardManager:
             await self.show_wallet_dashboard(update, context)
         elif query.data == "back_to_setting":
             await self.show_settings_dashboard(update, context)
-        # elif query.data == "refresh":
-        #     if self.current_dashboard 
+        elif query.data == "refresh":
+            if self.current_dashboard == "main":
+                await self.show_main_dashboard(update, context)
+            elif self.current_dashboard == "zfk":
+                await self.show_afk_dashboard(update, context)
+            elif self.current_dashboard == "position":
+                await self.show_position_dashboard(update, context)
+            elif self.current_dashboard == "setting":
+                await self.show_settings_dashboard(update, context)
+            elif self.current_dashboard == "wallet":
+                await self.show_wallet_dashboard(update, context)
+            elif self.current_dashboard == "sniper":
+                await self.show_sniper_dashboard(update, context)
+            else:
+                await self.show_trade_dashboard(update, context)
         else:
             await query.answer()
             await query.edit_message_text(text=f"You clicked: {query.data}")
