@@ -86,10 +86,12 @@ class DashboardManager:
         )
 
         if update.callback_query:
-            await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+            # Check if content or markup is different before editing
+            if update.callback_query.message.text != message or update.callback_query.message.reply_markup != reply_markup:
+                print(" ----------------refresh_mode!-------------------")
+                await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
         else:
             await update.message.reply_text(message, parse_mode="Markdown", reply_markup=reply_markup)
-
     async def show_afk_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Displays the AFK Mode (ZFK Mode) dashboard."""
         self.current_dashboard = "afk"
