@@ -174,10 +174,10 @@ class DashboardManager:
         self.current_dashboard = "feesetting"
         #Buttons for fee setting dashboard
         keyboard = [
-            [InlineKeyboardButton("Buy Fee: 0.001 SOL", callback_data='buy_fee'), InlineKeyboardButton("Sell Fee: 0.001SOL")],
-            [InlineKeyboardButton("Buy Tip: 0.001 SOL", callback_data='buy_tip'), InlineKeyboardButton("Sell Tip: N/A SOL")],
+            [InlineKeyboardButton("Buy Fee: 0.001 SOL", callback_data='buy_fee'), InlineKeyboardButton("Sell Fee: 0.001SOL", callback_data='sell_fee')],
+            [InlineKeyboardButton("Buy Tip: 0.001 SOL", callback_data='buy_tip'), InlineKeyboardButton("Sell Tip: N/A SOL", callback_data='sell_tip')],
             [InlineKeyboardButton("🔴Auto Tip", callback_data='auto_tip')],
-            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close")]
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -185,7 +185,7 @@ class DashboardManager:
 
         # Settings dashboard content
         message = (
-            f"*🌸 Fee Settings*\n\n"
+            f"🌸 Fee Settings\n\n"
             f"💡Click the button to set your desired fee amount.\n"
             f"Higher fees result in faster transactions.\n\n"
             f"📖 Learn More!\n\n"
