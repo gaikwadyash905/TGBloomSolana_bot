@@ -145,7 +145,7 @@ class DashboardManager:
 
         # Buttons for settings dashboard
         keyboard = [
-            [InlineKeyboardButton("Fee", callback_data='fee'), InlineKeyboardButton("💰Wallet", callback_data='wallet')],
+            [InlineKeyboardButton("Fee", callback_data='feesetting'), InlineKeyboardButton("💰Wallet", callback_data='wallet')],
             [InlineKeyboardButton("Buy Presets", callback_data='buy_presets'), InlineKeyboardButton("Sell Presets", callback_data='sell_presets')],
             [InlineKeyboardButton("Spot Presets", callback_data='spot_presets'), InlineKeyboardButton("Sniper Presets", callback_data='sniper_presets')],
             [InlineKeyboardButton("Degen Mode", callback_data='degen_mode'), InlineKeyboardButton("MEV Protect", callback_data='mev_protect')],
@@ -168,7 +168,32 @@ class DashboardManager:
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
+    async def show_fee_setting_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the fees etting dashboard."""
+        self.current_dashboard = "feesetting"
+        #Buttons for fee setting dashboard
+        keyboard = [
+            [InlineKeyboardButton("Buy Fee: 0.001 SOL", callback_data='buy_fee'), InlineKeyboardButton("Sell Fee: 0.001SOL")],
+            [InlineKeyboardButton("Buy Tip: 0.001 SOL", callback_data='buy_tip'), InlineKeyboardButton("Sell Tip: N/A SOL")],
+            [InlineKeyboardButton("🔴Auto Tip", callback_data='auto_tip')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
+        # Settings dashboard content
+        message = (
+            f"*🌸 Fee Settings*\n\n"
+            f"💡Click the button to set your desired fee amount.\n"
+            f"Higher fees result in faster transactions.\n\n"
+            f"📖 Learn More!\n\n"
+            f"🕒 Last updated: {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+        
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -295,6 +320,8 @@ class DashboardManager:
             await self.show_wallet_dashboard(update, context)
         elif query.data == "back_to_setting":
             await self.show_settings_dashboard(update, context)
+        elif query.data == "feesetting":
+            await self.show_fee_setting_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
