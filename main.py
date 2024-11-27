@@ -263,7 +263,34 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
     
+    async def show_sniper_presets_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display sniper presets dashboard."""
+        self.current_dashboard = "sniperpresets"
+        # Button for sniperpresetts dashaboard
+        button = [
+            [InlineKeyboardButton("🟢 Normal Mode", callback_data='normal_node')],
+            [InlineKeyboardButton("Active 🔴", callback_data='sniper_active'), InlineKeyboardButton("💰 Buy amonut : 0 SOL", callback_data='buy_0_sol')],
+            [InlineKeyboardButton("💰 Fee : 0 SOL", callback_data='fee_0_sol'), InlineKeyboardButton("🎒 Slippage: 0 %", callback_data='slippage_0')],
+            [InlineKeyboardButton("📈 Limit Orders", callback_data='limit_orders')],
+            [InlineKeyboardButton("Processsor: Staked Node", callback_data='processor')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(button)
+        
+        last_updated = get_us_time()
 
+        # sniperpresetts dashboard
+        message = (
+            f"🌸 Sniper Presets\n\n"
+            f"Please enter your desired sniper settings\n\n"
+            f"💡 Click the button to set your desired sniper settings.\n\n"
+            f"🟢 Task is active\n\n"
+            f"🔴 Task is inactive\n\n"
+            f"🕒 Last updated:  {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -398,6 +425,8 @@ class DashboardManager:
             await self.show_sell_presets_dashboard(update, context)
         elif query.data == "spot_presets":
             await self.show_spot_presets_dashboard(update, context)
+        elif query.data == "sniper_presets":
+            await self.show_sniper_presets_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
