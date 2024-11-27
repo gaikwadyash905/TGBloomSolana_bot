@@ -317,7 +317,8 @@ class DashboardManager:
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
-
+    
+    
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -349,7 +350,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("Sniper Wallets:0", callback_data='sniper_wallet'), InlineKeyboardButton("Create Task", callback_data='create_task')],
             [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
-            [InlineKeyboardButton("Close", callback_data='🚮close')]
+            [InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -361,6 +362,32 @@ class DashboardManager:
             f"🌸 Bloom Positions\n\n"
             f"🧐 No active sniper tasks!\n\n"
             f"📖 Learn More!\n\n"
+            f"🕒 Last updated: {last_updated}\n\n"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
+    async def show_sniper_wallets_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the sniper wallets dashboard."""
+        self.current_dashboard = "sniperwallets"
+
+        #Buttons for sniperwallets dashboard
+        keyboard = [
+             [InlineKeyboardButton("🔴W1 - 0 SOL", callback_data='w1_0sol')],
+             [InlineKeyboardButton("🔴W2 - 0 SOL", callback_data='s2_0sol')],
+             [InlineKeyboardButton("🔴W3 - 0 SOL", callback_data='s3_0sol')],
+             [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("🚮Close", callback_data='close')],
+         ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        last_updated = get_us_time()
+
+        # sniper dashboard content
+        message = (
+            f"🌸 Manage your active sniper wallets\n\n"
+            f"Click the button to activate/deactivate a wallet.\n\n"
+            f"🟢 Wallet is active\n\n"
+            f"🔴 Wallet is inactive\n\n"
             f"🕒 Last updated: {last_updated}\n\n"
         )
 
@@ -456,6 +483,8 @@ class DashboardManager:
             await self.show_sniper_presets_dashboard(update, context)
         elif query.data == "degen_mode":
             await self.show_degen__mode_dashboard(update, context)
+        elif query.data == "sniper_wallet":
+            await self.show_sniper_wallets_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
