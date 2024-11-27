@@ -291,6 +291,33 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
     
+    async def show_degen__mode_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the degenmode dashboard."""
+        self.current_dashboard = "degemode"
+        #Button for dege mode dashboard
+        keyboard = [
+            [InlineKeyboardButton("🔴 Degen State", callback_data='degen_state')],
+            [InlineKeyboardButton("💰 Degen Amount : 0", callback_data='degen_amount_0'), InlineKeyboardButton("💰 Degen Slippage : 0%", callback_data='degen_slippage_0')],
+            [InlineKeyboardButton("💰 Min Mcap : N/A USD", callback_data='min_mcap'), InlineKeyboardButton("💰 Max Mcap : N/A USD", callback_data='max_mcap')],
+            [InlineKeyboardButton("💰 Min Liq : N/A USD", callback_data='min_liq'), InlineKeyboardButton("💰 Max Liq : N/A USD", callback_data='max_liq')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        last_updated = get_us_time()
+
+        # sniperpresetts dashboard
+        message = (
+            f"🌸 Degen Mode Settings\n\n"
+            f"⚠️ With Degen Mode ON, the bot buys instantly when the\n\n token address is entered, and won't rebuy after selling, even if\n\nauto-buy is active.\n\n"
+            f"🟢: The feature/mode is turned **ON**.\n\n"
+            f"🔴: The feature/mode is turned **OFF**.\n\n"
+            f"📖 Learn More!"
+            f"🕒 Last updated:  {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -427,6 +454,8 @@ class DashboardManager:
             await self.show_spot_presets_dashboard(update, context)
         elif query.data == "sniper_presets":
             await self.show_sniper_presets_dashboard(update, context)
+        elif query.data == "degen_mode":
+            await self.show_degen__mode_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
