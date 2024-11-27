@@ -230,7 +230,7 @@ class DashboardManager:
 
         last_updated = get_us_time()
 
-        # Settings dashboard content
+        # sell preset dashboard content
         message = (
             f"🌸 Manual Sell Presets\n\n"
             f"Please enter your desired buy amount in SOL.\n"
@@ -240,6 +240,30 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
     
+    async def show_spot_presets_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the spot presets dashaboard"""
+        self.current_dashboard = "spotpresets"
+        #Button for spotpresets dashboard
+        button = [
+            [InlineKeyboardButton("🆕Create Limit Order", callback_data='create_limit_order')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(button)
+
+        last_updated = get_us_time()
+
+        # spot preset dashboard
+        message = (
+            f"🌸 Auto Orders\n\n"
+            f"🧐 No active limit orders\n\n"
+            f"📖 Learn More!\n\n"
+            f"🕒 Last updated:  {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
+
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -372,6 +396,8 @@ class DashboardManager:
             await self.show_buy_presets_dashboard(update, context)
         elif query.data == "sell_presets":
             await self.show_sell_presets_dashboard(update, context)
+        elif query.data == "spot_presets":
+            await self.show_spot_presets_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
