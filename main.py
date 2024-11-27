@@ -177,7 +177,7 @@ class DashboardManager:
             [InlineKeyboardButton("Buy Fee: 0.001 SOL", callback_data='buy_fee'), InlineKeyboardButton("Sell Fee: 0.001SOL", callback_data='sell_fee')],
             [InlineKeyboardButton("Buy Tip: 0.001 SOL", callback_data='buy_tip'), InlineKeyboardButton("Sell Tip: N/A SOL", callback_data='sell_tip')],
             [InlineKeyboardButton("🔴Auto Tip", callback_data='auto_tip')],
-            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -201,7 +201,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("0.5 SOL", callback_data='half_sol'), InlineKeyboardButton("1 SOL", callback_data='one_sol'), InlineKeyboardButton("2 SOL", callback_data='two_sol')],
             [ InlineKeyboardButton("5 SOL", callback_data='five_sol'), InlineKeyboardButton("10 SOL", callback_data='ten_sol')],
-            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -224,7 +224,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("1 %", callback_data='one_pro'), InlineKeyboardButton("5 %", callback_data='five_pro'), InlineKeyboardButton("10 %", callback_data='ten_pro')],
             [ InlineKeyboardButton("50 %", callback_data='fifty_pro'), InlineKeyboardButton("100 %", callback_data='hundred_pro')],
-            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -247,7 +247,7 @@ class DashboardManager:
         button = [
             [InlineKeyboardButton("🆕Create Limit Order", callback_data='create_limit_order')],
             [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
-            [InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(button)
 
@@ -295,7 +295,7 @@ class DashboardManager:
         keyboard = [
             [InlineKeyboardButton("Sniper Wallets:0", callback_data='sniper_wallet'), InlineKeyboardButton("Create Task", callback_data='create_task')],
             [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
-            [InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("Close", callback_data='🚮close')]
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -321,7 +321,7 @@ class DashboardManager:
             [InlineKeyboardButton("Add new config", callback_data='new_config')],
             [InlineKeyboardButton("Pause All", callback_data='pause_all'), InlineKeyboardButton("Start All", callback_data='start_all')],
             [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
-            [InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -350,7 +350,7 @@ class DashboardManager:
             [InlineKeyboardButton("W1 0SOL", callback_data='sol_button1'), InlineKeyboardButton("W2 0SOL", callback_data='sol_button2')],
             [InlineKeyboardButton("W3 0SOL", callback_data='sol_button3')],
             [InlineKeyboardButton("Create Wallet", callback_data='create_wallet'), InlineKeyboardButton("Import Wallet", callback_data='import_wallet')],
-            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
