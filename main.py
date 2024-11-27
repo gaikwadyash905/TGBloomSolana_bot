@@ -422,6 +422,33 @@ class DashboardManager:
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
+    async def show_withdraw_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Diaplay the withdraw dashabord."""
+        self.current_dashboard = "withdraw"
+
+        #Button for withdraw dashboard
+        keyboard = [
+            [InlineKeyboardButton("50%", callback_data='fifty_precent'), InlineKeyboardButton("100 %", callback_data='hundred_percent'), InlineKeyboardButton("X SOL", callback_data='x_sol')],
+            [InlineKeyboardButton("Set Address", callback_data='set_address')],
+            [InlineKeyboardButton("Back", callback_data='back'), InlineKeyboardButton("♻️Refresh", callback_data='refresh')],
+            [InlineKeyboardButton("🚮Close", callback_data='close')] 
+        ]
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        last_updated = get_us_time()
+
+        # trader dashboard content
+        message = (
+            f"🌸 Withdraw Solana\n\n"
+            f"Balance: 0 SOL\n\n"
+            f"Current withdrawal address: \n\n"
+            f"🔧 Last address edit: -\n\n"
+            f"🕒 Last updated: {last_updated}\n\n"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
     async def show_wallet_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the wallet dashboard."""
         self.current_dashboard = "wallet"
@@ -485,6 +512,8 @@ class DashboardManager:
             await self.show_degen__mode_dashboard(update, context)
         elif query.data == "sniper_wallet":
             await self.show_sniper_wallets_dashboard(update, context)
+        elif query.data == "withdraw":
+            await self.show_withdraw_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
