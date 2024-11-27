@@ -216,7 +216,30 @@ class DashboardManager:
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
+    async def show_sell_presets_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Display the sellpresets dashboard."""
+        self.current_dashboard = "sellpresets"
+        #Button for sellpresets dashboard
+        keyboard = [
+            [InlineKeyboardButton("1 %", callback_data='one_pro'), InlineKeyboardButton("5 %", callback_data='five_pro'), InlineKeyboardButton("10 %", callback_data='ten_pro')],
+            [ InlineKeyboardButton("50 %", callback_data='fifty_pro'), InlineKeyboardButton("100 %", callback_data='hundred_pro')],
+            [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
 
+        last_updated = get_us_time()
+
+        # Settings dashboard content
+        message = (
+            f"🌸 Manual Sell Presets\n\n"
+            f"Please enter your desired buy amount in SOL.\n"
+            f"💡 Click the button to set your desired sell amount.\n\n"
+            f"🕒 Last updated: {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+    
     async def show_position_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Display the position settings dashboard."""
         self.current_dashboard = "position"
@@ -347,6 +370,8 @@ class DashboardManager:
             await self.show_fee_setting_dashboard(update, context)
         elif query.data == "buy_presets":
             await self.show_buy_presets_dashboard(update, context)
+        elif query.data == "sell_presets":
+            await self.show_sell_presets_dashboard(update, context)
         elif query.data == "refresh":
             if self.current_dashboard == "main":
                 await self.show_main_dashboard(update, context)
