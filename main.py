@@ -7,16 +7,19 @@ from dashboards.afk_dashboard import AfkDashboard
 from dashboards.position_dashboard import PositionDashboard
 from dashboards.trade_dashboard import TradeDashboard
 from dashboards.withdraw_dashboard import WithdrawDashboard
+from dashboards.setting_dashboard import SettingDashboard
 
 def main():
     """Run the bot."""
     wallet_generator = generate_solana_wallet()
     time_utils = get_us_time
+
     main_dashboard = MainDashboard(wallet_generator, time_utils)
     afk_dashboard = AfkDashboard(wallet_generator, time_utils, main_dashboard)
     position_dashboard = PositionDashboard(wallet_generator, time_utils, main_dashboard)
     trade_dashboard = TradeDashboard(wallet_generator, time_utils, main_dashboard)
     withdraw_dashboard = WithdrawDashboard(wallet_generator, time_utils, main_dashboard)
+    setting_dashboard = SettingDashboard(wallet_generator, time_utils, main_dashboard)
 
     application = Application.builder().token(TOKEN).build()
 
@@ -34,6 +37,9 @@ def main():
 
     application.add_handler(CallbackQueryHandler(withdraw_dashboard.show, pattern="withdraw"))
     application.add_handler(CallbackQueryHandler(withdraw_dashboard.handle_button_click, pattern="back_to_main|refresh"))
+
+    application.add_handler(CallbackQueryHandler(setting_dashboard.show, pattern="settings"))
+    application.add_handler(CallbackQueryHandler(setting_dashboard.handle_button_click, pattern="back_to_main|refresh"))
 
 
     application.run_polling()
