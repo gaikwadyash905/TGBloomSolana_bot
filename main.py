@@ -479,6 +479,10 @@ class DashboardManager:
         self.current_dashboard = "createwallet"
 
         #Buttons for create wallet dashboard
+        keyboard = [
+            [InlineKeyboardButton("🚮Close", callback_data='close')]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
 
         # Create wallet
         publickey =  self.wallet_generator.public_key
@@ -496,7 +500,7 @@ class DashboardManager:
             f"🕒 Last updated: {last_updated}"
         )
 
-        await update.callback_query.message.edit_text(message, parse_mode="Markdown")
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
 
     async def handle_button_click(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
