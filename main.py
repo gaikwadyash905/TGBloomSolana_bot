@@ -455,9 +455,9 @@ class DashboardManager:
 
         #Buttons for wallet dashboard
         keyboard = [
-            [InlineKeyboardButton("W1 0SOL", callback_data='sol_button1'), InlineKeyboardButton("W2 0SOL", callback_data='sol_button2')],
+            [InlineKeyboardButton("🟢W1 0SOL", callback_data='sol_button1'), InlineKeyboardButton("W2 0SOL", callback_data='sol_button2')],
             [InlineKeyboardButton("W3 0SOL", callback_data='sol_button3')],
-            [InlineKeyboardButton("Create Wallet", callback_data='create_wallet'), InlineKeyboardButton("Import Wallet", callback_data='import_wallet')],
+            [InlineKeyboardButton("💰Create Wallet", callback_data='create_wallet'), InlineKeyboardButton("🔑Import Wallet", callback_data='import_wallet')],
             [InlineKeyboardButton("Back", callback_data='back_to_setting'), InlineKeyboardButton("🚮Close", callback_data='close')]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
