@@ -36,7 +36,7 @@ class WithdrawDashboard(BaseDashboard):
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
 
     async def handle_button_click(self, update, context):
-        """Handles button clicks within the AFK dashboard."""
+        """Handles button clicks within the withdraw dashboard."""
         query = update.callback_query
 
         if query.data == "back_to_main":
