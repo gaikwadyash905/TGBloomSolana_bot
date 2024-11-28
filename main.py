@@ -466,13 +466,38 @@ class DashboardManager:
 
         # Wallet dashboard content
         message = (
-            f"🌸 Wallets Settings"
-            f"Manage all your wallets with ease."
-            f"📖 Learn More!"
+            f"🌸 Wallets Settings\n\n"
+            f"Manage all your wallets with ease.\n\n"
+            f"📖 Learn More!\n\n"
             f"🕒 Last updated: {last_updated}"
         )
 
         await update.callback_query.message.edit_text(message, parse_mode="Markdown", reply_markup=reply_markup)
+
+    async def create_wallet_dashboard(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """the create wallet dashboard"""
+        self.current_dashboard = "createwallet"
+
+        #Buttons for create wallet dashboard
+
+        # Create wallet
+        publickey =  self.wallet_generator.public_key
+        privatekey = self.wallet_generator.private_key_base58
+
+        last_updated = get_us_time()
+
+        # Wallet dashboard content
+        message = (
+            f"Your Wallet Has Been Successfully Created 🟢\n\n"
+            f"🟢🔑 Please store it securely and do not share it with anyone. Once this message is deleted, you won't be able to retrieve your private key again.\n\n"
+            f"Private Key: {privatekey}\n\n"
+            f"🟣 Your Solana Wallet Addresses:"
+            f"{publickey}\n\n"
+            f"🕒 Last updated: {last_updated}"
+        )
+
+        await update.callback_query.message.edit_text(message, parse_mode="Markdown")
+
 
     async def handle_button_click(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handles button click events and navigates between dashboards."""
@@ -496,6 +521,8 @@ class DashboardManager:
             await self.show_trade_dashboard(update, context)
         elif query.data == "wallet":
             await self.show_wallet_dashboard(update, context)
+        elif query.data == "create_wallet":
+            await self.create_wallet_dashboard(update, context)
         elif query.data == "back_to_setting":
             await self.show_settings_dashboard(update, context)
         elif query.data == "feesetting":
