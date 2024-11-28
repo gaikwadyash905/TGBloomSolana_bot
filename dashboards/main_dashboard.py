@@ -4,7 +4,7 @@ from telegram import InlineKeyboardButton
 class MainDashboard(BaseDashboard):
     """Handles the main dashboard UI and functionality."""
 
-    async def show_main_dashboard(self, update, context):
+    async def show(self, update, context):
         self.current_dashboard = "main"
         wallet_address = self.wallet_generator.public_key
         balance = "0 SOL (USD $0)"
