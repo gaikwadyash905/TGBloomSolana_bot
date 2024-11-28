@@ -5,6 +5,7 @@ from utils.time_utils import get_us_time
 from dashboards.main_dashboard import MainDashboard
 from dashboards.afk_dashboard import AfkDashboard
 from dashboards.position_dashboard import PositionDashboard
+from dashboards.trade_dashboard import TradeDashboard
 
 def main():
     """Run the bot."""
@@ -13,6 +14,7 @@ def main():
     main_dashboard = MainDashboard(wallet_generator, time_utils)
     afk_dashboard = AfkDashboard(wallet_generator, time_utils, main_dashboard)
     position_dashboard = PositionDashboard(wallet_generator, time_utils, main_dashboard)
+    trade_dashboard = TradeDashboard(wallet_generator, time_utils, main_dashboard)
 
     application = Application.builder().token(TOKEN).build()
 
@@ -24,6 +26,10 @@ def main():
 
     application.add_handler(CallbackQueryHandler(position_dashboard.show, pattern="positions"))
     application.add_handler(CallbackQueryHandler(position_dashboard.handle_button_click, pattern="back_to_main|refresh"))
+
+    application.add_handler(CallbackQueryHandler(trade_dashboard.show, pattern="copy_trade"))
+    application.add_handler(CallbackQueryHandler(trade_dashboard.handle_button_click, pattern="back_to_main|refresh"))
+
 
     application.run_polling()
 
