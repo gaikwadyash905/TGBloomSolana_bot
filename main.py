@@ -8,6 +8,7 @@ from dashboards.position_dashboard import PositionDashboard
 from dashboards.trade_dashboard import TradeDashboard
 from dashboards.withdraw_dashboard import WithdrawDashboard
 from dashboards.setting_dashboard import SettingDashboard
+from dashboards.lpsniper_dashboard import LpSniperDashboard
 
 def main():
     """Run the bot."""
@@ -20,6 +21,7 @@ def main():
     trade_dashboard = TradeDashboard(wallet_generator, time_utils, main_dashboard)
     withdraw_dashboard = WithdrawDashboard(wallet_generator, time_utils, main_dashboard)
     setting_dashboard = SettingDashboard(wallet_generator, time_utils, main_dashboard)
+    lpsniper_dashboard = LpSniperDashboard(wallet_generator, time_utils, main_dashboard)
 
     application = Application.builder().token(TOKEN).build()
 
@@ -40,6 +42,9 @@ def main():
 
     application.add_handler(CallbackQueryHandler(setting_dashboard.show, pattern="settings"))
     application.add_handler(CallbackQueryHandler(setting_dashboard.handle_button_click, pattern="back_to_main|refresh"))
+
+    application.add_handler(CallbackQueryHandler(lpsniper_dashboard.show, pattern="lp_sniper"))
+    application.add_handler(CallbackQueryHandler(lpsniper_dashboard.handle_button_click, pattern="back_to_main|refresh"))
 
 
     application.run_polling()
