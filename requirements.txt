@@ -2,3 +2,4 @@ python-telegram-bot
 solders
 base58
 python-dotenv
+pymongo
